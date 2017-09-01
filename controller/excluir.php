@@ -1,16 +1,25 @@
 <?php
     include '../connection/conexao.php';
     
-    $db = mysql_select_db($database);
+    $chave = $_POST["chave"];
+    if(!empty($chave) && $chave > 0){
+        $db = mysql_select_db($database);
     
-    $sql = "DELETE FROM ocorrencia";
+        $sql = "DELETE FROM ocorrencia WHERE id = $chave";
     
-    $result = mysql_query($sql);
+        $result = mysql_query($sql);
     
-    if(!$result){
-        die("Falha ao exluir a ocorrência. Erro: ".mysql_error());
+        if(!$result){
+            echo "<script>alert('Não foi possivel excluir. cliente n encontrado')</script> Erro: ".mysql_error();
+        } else{
+            echo "<script>alert('Excluido com sucesso');</script>";
+        }
     } else{
-        echo "<script>window.location='../index.php'</script>";
+        echo "<script>alert('Não foi possivel excluir. cliente n encontrado')</script>";
     }
+    
+    echo "<script>window.location='../index.php'</script>";
+    
+    
 ?>
 
