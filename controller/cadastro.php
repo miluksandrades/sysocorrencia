@@ -15,7 +15,6 @@
     if(!$conexao){
         echo "<script>alert('Não foi possivel salvar os dados');</scrpit>";
     } else{
-        echo "<script>alert('Cadastro feito com sucesso')</script>";
         echo "<script>window.location='../index.php'</script>";
     }
     
