@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Sysocorrência</title>
+        <title>SysOcorrência</title>
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
         <!-- Bootstrap 3.3.2 -->
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />    
@@ -15,6 +15,7 @@
         <link href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css" rel="stylesheet" type="text/css" />
         <!--Material Icons-->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="icon" type="image/png" href="favicon.png"/>
         <style>
             td{
                 font-size: 18px;
@@ -27,7 +28,7 @@
 
             <header class="main-header">
                 <!-- Logo -->
-                <a href="index.php" class="logo"><b>Sys</b>Ocorrência</a>
+                <a href="index.php" class="logo"><img src="favicon.png" width="30px" height="30px"/><b> Sys</b>Ocorrência</a>
                 <!-- Header Navbar: style can be found in header.less -->
                 <nav class="navbar navbar-static-top" role="navigation">
                     <!-- Sidebar toggle button-->
@@ -69,16 +70,15 @@
                                     <h2 class="box-title">Lista de Ocorrência</h2>
                                 </div>
                                 <div class="box-body">
-                                    <table class="table table-striped tabl-hover">
+                                    <table class="table table-striped table-responsive table-hover">
                                         <thead class="bg-green">
                                             <tr>
-                                                <th style="width: 100px">id</th>
-                                                <!--<th>Status</th>-->
-                                                <th style="width: 200px">Tipo de Ocorrência</th>
+                                                <th style="width: 50px;">id</th>
+                                                <th style="width: 200px">Status</th>
                                                 <th style="width: 350px; text-align: justify">Descrição</th>
                                                 <th>Responsável</th>
                                                 <th>Local</th>                                                
-                                                <th>Ações</th>
+                                                <th>Opções</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -91,15 +91,15 @@
                                             
                                             while ($aux = mysql_fetch_assoc($sql)) {
                                                 echo "<tr><td>" . $aux["id"] . "</td>";
-                                                echo "<td>" . $aux["problema"] . "</td>";
+                                                echo "<td>" . $aux["situacao"] . "</td>";
                                                 echo "<td>" . $aux["descricao"] . "</td>";
                                                 echo "<td>" . $aux["responsavel"] . "</td>";
                                                 echo "<td>" . $aux["localidade"] . "</td>";                                                
-                                                echo "<td>" . "<a href='#' data-toggle='modal' data-target='#modal-add'>"
-                                                ."<button class='btn btn-success'><i class='material-icons'>edit</i>"
+                                                echo "<td>" . "<a href='#'>"
+                                                ."<button class='btn btn-success'><i class='fa fa-pencil'></i>"
                                                 ."</button></a><form action='controller/excluir.php' method='post'>"
                                                 ."<input type='text' name='chave' value='".$aux['id']."' style='display: none;'/>"
-                                                ."<button type='submit' class='btn btn-danger'><i class='material-icons'>delete</i></button>" 
+                                                ."<button style='margin-top: 5px' type='submit' class='btn btn-danger'><i class='fa fa-trash'></i></button>" 
                                                 ."</form>" . "</td></tr>";
                                             }
                                             ?>
@@ -113,9 +113,9 @@
             </div><!-- content-wrapper -->
             <footer class="main-footer">
                 <div class="pull-right hidden-xs">
-                    <b>Versão</b> 1.0.1
+                    <b>Versão</b> 1.1.0
                 </div>
-                <strong>Copyright &copy; 2017 <a href="mailto:suporte@devnull.com.br">DevNULL</a></strong>. Todos os Direitos Reservados.
+                <strong><a href="mailto:lucas.tecnico.dev@gmail.com">Lucas Andrade</a> Copyright &copy; 2017</strong>. Todos os Direitos Reservados.
             </footer>            
         </div>
         
@@ -130,18 +130,26 @@
                         <h3 class="modal-title">Cadastro de Ocorrência</h3>
                     </div>
                     <div class="modal-body">                        
-                        <form action="controller/cadastro.php" method="POST">
+                        <form action="controller/alterar.php" method="POST">
+                            <input type="text" style="display: none" value=""/>
                             <div class="form-group col-md-6 col-xs-12">
                                 <label class="control-label">Contato Responsável:</label>
                                 <input class="form-control" type="text" value="" name="responsavel"/>
                             </div>
                             <div class="form-group col-md-6 col-xs-12">
                                 <label for="selection">Local:</label>
-                                <input class="form-control" type="text" name="local"/>
+                                <input class="form-control" type="text" value="" name="local"/>
                             </div>
                             <div class="form-group col-md-6 col-xs-12">
                                 <label class="control-label">Problema:</label>
-                                <input class="form-control" name="tipo" type="text"/>
+                                <input class="form-control" name="tipo" value="" type="text"/>
+                            </div>
+                            <div class="form-group col-md-6 col-xs-12">
+                                <label class="control-label">Status:</label>
+                                <select class="form-control" name="status">
+                                    <option value="Aberto">Aberto</option>
+                                    <option value="Concluído">Concluído</option>                                    
+                                </select>
                             </div>
                             <div class="form-group col-md-12 col-xs-12">
                                 <label class="control-label">Descrição:</label>
@@ -150,7 +158,7 @@
                             
                             <div class="modal-footer">
                                 <div class="col-md-12 col-xs-12 pull-left">
-                                    <button type="submit" class="btn btn-success">Cadastrar</button>
+                                    <button type="submit" class="btn btn-success">Salvar</button>
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                                 </div>
                             </div>
@@ -174,19 +182,27 @@
                         <form action="controller/cadastro.php" method="POST">
                             <div class="form-group col-md-6 col-xs-12">
                                 <label class="control-label">Contato Responsável:</label>
-                                <input class="form-control" type="text" name="responsavel"/>
+                                <input class="form-control" type="text" name="responsavel" required/>
                             </div>
                             <div class="form-group col-md-6 col-xs-12">
                                 <label for="selection">Local:</label>
-                                <input class="form-control" type="text" name="local"/>
+                                <input class="form-control" type="text" name="local" required/>
                             </div>
                             <div class="form-group col-md-6 col-xs-12">
-                                <label class="control-label">Problema:</label>
-                                <input class="form-control" name="tipo" type="text"/>
+                                <label class="control-label">Ocorrência:</label>
+                                <input class="form-control" name="tipo" type="text" required/>
+                            </div>
+                            <div class="form-group col-md-6 col-xs-12">
+                                <label class="control-label">Status:</label>
+                                <select class="form-control" name="status" required>
+                                    <option value="">Selecione...</option>
+                                    <option value="Aberto">Aberto</option>
+                                    <option value="Concluído">Concluído</option>                                    
+                                </select>
                             </div>
                             <div class="form-group col-md-12 col-xs-12">
                                 <label class="control-label">Descrição:</label>
-                                <textarea class="form-control" name="descricao"></textarea>
+                                <textarea class="form-control" name="descricao" required></textarea>
                             </div>
                             
                             <div class="modal-footer">
