@@ -5,7 +5,7 @@
         <title>OcoMon</title>
         <?php
             $page = $_SERVER['PHP_SELF'];
-            $sec = "300";
+            $sec = "60";
         ?>
         <meta http-equiv="refresh" content="<?php echo $sec?>;URL='<?php echo $page?>'">
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
@@ -93,8 +93,7 @@
                         <div class="col-xs-12">
                             <div class="box box-success">
                                 <div class="box-header">
-                                    <button class="btn btn-primary" onclick="atualizar()"><i class="fa fa-refresh"></i> Atualizar</button>&nbsp;&nbsp;
-                                    <button class="btn btn-success" data-toggle="modal" data-target="#modal-add"><i class="fa fa-plus"></i> Abrir Chamado</button>
+                                    <button class="btn btn-primary" onclick="atualizar()"><i class="fa fa-refresh"></i> Atualizar</button>
                                 </div>
                                 <div class="box-body">
                                     <table class="table table-striped tabl-hover">
@@ -105,8 +104,7 @@
                                                 <th style="width: 200px">Tipo de Ocorrência</th>
                                                 <th style="width: 350px; text-align: justify">Descrição</th>
                                                 <th>Responsável</th>
-                                                <th>Local</th>                                                
-                                                <th>Ações</th>
+                                                <th>Local</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -122,78 +120,7 @@
                                                 echo "<td>" . $aux["problema"] . "</td>";
                                                 echo "<td>" . $aux["descricao"] . "</td>";
                                                 echo "<td>" . $aux["responsavel"] . "</td>";
-                                                echo "<td>" . $aux["localidade"] . "</td>";
-                                                echo "<td>" . "<a href='#' data-toggle='modal' data-target='#modal-alter'>"
-                                                . "<button class='btn btn-success'><i class='material-icons'>edit</i>"
-                                                . "</button></a>&nbsp;&nbsp;<a href='#' data-toggle='modal' data-target='#modal-excluir'>"
-                                                . "<button class='btn btn-danger'><i class='material-icons'>delete</i></button></a>"
-                                                . "</td></tr>";
-
-                                                echo"<div class='modal fade cart-modal' id='modal-excluir' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
-                                                        <div class='modal-dialog' role='document'>
-                                                            <div class='modal-content'>
-                                                                <div class='modal-header'>
-                                                                    <button type='button' class='close' data-dismiss='modal' aria-label='close'>
-                                                                        <span aria-hidden='true'><i class='glyphicon glyphicon-remove'></i></span>
-                                                                    </button>
-                                                                    <h3 class='modal-title'>Remover Ocorrência</h3>
-                                                                </div>
-                                                                <div class='modal-body'>                        
-                                                                    <form action='controller/excluir.php' method='POST'>
-                                                                        <input type='text' name='chave' value='" . $aux["id"] . "' style='display:none'/>
-                                                                        <p class='lead'>Deseja realmente excluir esse movimento?</p>
-                                                                        <div class='modal-footer'>
-                                                                            <div class='col-md-12 col-xs-12 pull-left'>
-                                                                                <button type='submit' class='btn btn-danger'>Remover</button>
-                                                                                <button type='button' class='btn btn-default' data-dismiss='modal'>Cancelar</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>";
-
-                                                echo "<div class='modal fade cart-modal' id='modal-alter' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
-                                                        <div class='modal-dialog' role='document'>
-                                                            <div class='modal-content'>
-                                                                <div class='modal-header'>
-                                                                    <button type='button' class='close' data-dismiss='modal' aria-label='close'>
-                                                                        <span aria-hidden='true'><i class='glyphicon glyphicon-remove'></i></span>
-                                                                    </button>
-                                                                    <h3 class='modal-title'>Alteração de Ocorrência</h3>
-                                                                </div>
-                                                                <div class='modal-body'>                        
-                                                                    <form action='controller/alterar.php' method='POST'>
-                                                                        <input type='text' name='alteracao' value='" . $aux["id"] . "' style='display:none'/>
-                                                                        <div class='form-group col-md-6 col-xs-12'>
-                                                                            <label class='control-label'>Contato Responsável:</label>
-                                                                            <input class='form-control' type='text' value='" . $aux["responsavel"] . "' name='responsavel'/>
-                                                                        </div>
-                                                                        <div class='form-group col-md-6 col-xs-12'>
-                                                                            <label for='selection'>Local:</label>
-                                                                            <input class='form-control' value='" . $aux["localidade"] . "' type='text' name='local'/>
-                                                                        </div>
-                                                                        <div class='form-group col-md-6 col-xs-12'>
-                                                                            <label class='control-label'>Problema:</label>
-                                                                            <input class='form-control' value='" . $aux["problema"] . "' name='tipo' type='text'/>
-                                                                        </div>
-                                                                        <div class='form-group col-md-12 col-xs-12'>
-                                                                            <label class='control-label'>Descrição:</label>
-                                                                            <textarea class='form-control' name='descricao'>" . $aux["descricao"] . "</textarea>
-                                                                        </div>
-
-                                                                        <div class='modal-footer'>
-                                                                            <div class='col-md-12 col-xs-12 pull-left'>
-                                                                                <button type='submit' class='btn btn-success'>Alterar</button>
-                                                                                <button type='button' class='btn btn-default' data-dismiss='modal'>Cancelar</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>";
+                                                echo "<td>" . $aux["localidade"] . "</td></tr>";
                                             }
                                             ?>
 
@@ -275,3 +202,4 @@
         </script>
     </body>
 </html>
+
