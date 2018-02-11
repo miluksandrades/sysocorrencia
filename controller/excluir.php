@@ -18,7 +18,7 @@
         echo "<script>alert('Não foi possivel excluir. cliente n encontrado')</script>";
     }
     
-    echo "<script>window.location='../index.php'</script>";
+    echo "<script>window.location='../home.php'</script>";
     
     
 ?>

@@ -23,6 +23,6 @@ if (!empty($chave) && $chave > 0) {
 } else {
     echo "<script>alert('Não foi possivel alterar. Ocorrência não encontrada');</script>";
 }
-echo "<script>window.location='../index.php'</script>";
+echo "<script>window.location='../home.php'</script>";
 
 
