@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 11-Fev-2018 às 16:12
+-- Generation Time: 12-Fev-2018 às 03:03
 -- Versão do servidor: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -31,8 +31,16 @@ CREATE TABLE `ocorrencia` (
   `responsavel` varchar(70) NOT NULL,
   `problema` varchar(70) NOT NULL,
   `descricao` varchar(400) NOT NULL,
-  `localidade` varchar(70) NOT NULL
+  `localidade` varchar(70) NOT NULL,
+  `status` char(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `ocorrencia`
+--
+
+INSERT INTO `ocorrencia` (`id`, `responsavel`, `problema`, `descricao`, `localidade`, `status`) VALUES
+(29, 'Lucia', 'Smartcob', 'InstalaÃ§Ã£o', 'RealPax', 'E');
 
 -- --------------------------------------------------------
 
@@ -53,7 +61,8 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`usu_id`, `usu_nome`, `usu_username`, `usu_password`, `usu_depart`) VALUES
-(125, 'UnievangÃ©lica', 'thiago', 'YWRtNzIwMA==', 'Suporte');
+(125, 'UnievangÃ©lica', 'thiago', 'YWRtNzIwMA==', 'Suporte'),
+(126, 'Lucas', 'lucas', 'YWRtNzIwMA==', 'Suporte');
 
 --
 -- Indexes for dumped tables
@@ -79,12 +88,12 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT for table `ocorrencia`
 --
 ALTER TABLE `ocorrencia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 --
 -- AUTO_INCREMENT for table `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `usu_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=126;
+  MODIFY `usu_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

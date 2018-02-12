@@ -7,11 +7,12 @@ $responsavel = $_POST["responsavel"];
 $problema = $_POST["tipo"];
 $descricao = $_POST["descricao"];
 $local = $_POST["local"];
+$status = $_POST["status"];
 
 if (!empty($chave) && $chave > 0) {
     $db = mysql_select_db($database);
 
-    $sql = "UPDATE ocorrencia SET responsavel='$responsavel', problema='$problema', descricao='$descricao', localidade='$local' WHERE id = $chave";
+    $sql = "UPDATE ocorrencia SET responsavel='$responsavel', problema='$problema', descricao='$descricao', localidade='$local', status='$status' WHERE id = $chave";
 
     $result = mysql_query($sql);
 

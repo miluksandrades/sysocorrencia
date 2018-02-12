@@ -115,8 +115,7 @@
                                     <table class="table table-striped tabl-hover">
                                         <thead class="bg-green">
                                             <tr>
-                                                <th style="width: 100px">id</th>
-                                                <!--<th>Status</th>-->
+                                                <th style="width: 100px">Status</th>
                                                 <th style="width: 200px">Tipo de Ocorrência</th>
                                                 <th style="width: 350px; text-align: justify">Descrição</th>
                                                 <th>Responsável</th>
@@ -130,10 +129,20 @@
                                             include './connection/conexao.php';
 
                                             $db = mysql_select_db("$database");
-                                            $sql = mysql_query("SELECT *FROM ocorrencia");
+                                            $sql = mysql_query("SELECT *FROM ocorrencia WHERE status = 'A' OR status = 'E'");
 
                                             while ($aux = mysql_fetch_assoc($sql)) {
-                                                echo "<tr><td>" . $aux["id"] . "</td>";
+                                                
+                                                if($aux["status"] == 'A'){
+                                                    $saida = "<td style='text-align: center'><i class='fa fa-circle' style='color: green'></i></td>";
+                                                } else if($aux["status"] == 'E'){
+                                                    $saida = "<td style='text-align: center'><i class='fa fa-circle' style='color: blue'></i></td>";
+                                                } else if($aux["status"] == 'F'){
+                                                    $saida = "<td style='text-align: center'><i class='fa fa-circle' style='color: red'></i></td>";
+                                                }
+                                                
+                                                echo"<tr>";
+                                                echo "".$saida;                                         
                                                 echo "<td>" . $aux["problema"] . "</td>";
                                                 echo "<td>" . $aux["descricao"] . "</td>";
                                                 echo "<td>" . $aux["responsavel"] . "</td>";
@@ -144,30 +153,24 @@
                                                 . "<button class='btn btn-danger'><i class='material-icons'>delete</i></button></a>"
                                                 . "</td></tr>";
 
-                                                echo"<div class='modal fade cart-modal' id='modal-excluir' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
-                                                        <div class='modal-dialog' role='document'>
-                                                            <div class='modal-content'>
-                                                                <div class='modal-header'>
-                                                                    <button type='button' class='close' data-dismiss='modal' aria-label='close'>
-                                                                        <span aria-hidden='true'><i class='glyphicon glyphicon-remove'></i></span>
-                                                                    </button>
-                                                                    <h3 class='modal-title'>Remover Ocorrência</h3>
-                                                                </div>
-                                                                <div class='modal-body'>                        
-                                                                    <form action='controller/excluir.php' method='POST'>
-                                                                        <input type='text' name='chave' value='" . $aux["id"] . "' style='display:none'/>
-                                                                        <p class='lead'>Deseja realmente excluir esse movimento?</p>
-                                                                        <div class='modal-footer'>
-                                                                            <div class='col-md-12 col-xs-12 pull-left'>
-                                                                                <button type='submit' class='btn btn-danger'>Remover</button>
-                                                                                <button type='button' class='btn btn-default' data-dismiss='modal'>Cancelar</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>";
+                                                echo"<div class='modal fade cart-modal' id='modal-excluir' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>";
+                                                echo"<div class='modal-dialog' role='document'>";
+                                                echo"<div class='modal-content'>";
+                                                echo"<div class='modal-header'>";
+                                                echo"<button type='button' class='close' data-dismiss='modal' aria-label='close'>";
+                                                echo"<span aria-hidden='true'><i class='glyphicon glyphicon-remove'></i></span>";
+                                                echo"</button>";
+                                                echo"<h3 class='modal-title'>Remover Ocorrência</h3>";
+                                                echo"</div>";
+                                                echo"<div class='modal-body'>";                        
+                                                echo"<form action='controller/excluir.php' method='POST'>";
+                                                echo"<input type='text' name='chave' value='".$aux["id"]."' style='display: none'/>";
+                                                echo"<p class='lead'>Deseja realmente excluir esse movimento?</p>";
+                                                echo"<div class='modal-footer'>";
+                                                echo"<div class='col-md-12 col-xs-12 pull-left'>";
+                                                echo"<button type='submit' class='btn btn-danger'>Remover</button>";
+                                                echo"<button type='button' class='btn btn-default' data-dismiss='modal'>Cancelar</button>";
+                                                echo"</div></div></form></div></div></div></div>";
 
                                                 echo "<div class='modal fade cart-modal' id='modal-alter' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
                                                         <div class='modal-dialog' role='document'>
@@ -180,7 +183,7 @@
                                                                 </div>
                                                                 <div class='modal-body'>                        
                                                                     <form action='controller/alterar.php' method='POST'>
-                                                                        <input type='text' name='alteracao' value='" . $aux["id"] . "' style='display:none'/>
+                                                                        <input type='text' name='alteracao' value='".$aux["id"]."' style='display: none'/>
                                                                         <div class='form-group col-md-6 col-xs-12'>
                                                                             <label class='control-label'>Contato Responsável:</label>
                                                                             <input class='form-control' type='text' value='" . $aux["responsavel"] . "' name='responsavel'/>
@@ -193,6 +196,14 @@
                                                                             <label class='control-label'>Problema:</label>
                                                                             <input class='form-control' value='" . $aux["problema"] . "' name='tipo' type='text'/>
                                                                         </div>
+                                                                        <div class='form-group col-md-6 col-xs-12'>
+                                                                            <label class='control-label'>Status:</label>
+                                                                            <select class='form-control' name='status' required>
+                                                                                <option value='A'>Aberto</option>
+                                                                                <option value='E'>Em Atendimento</option>
+                                                                                <option value='F'>Finalizado</option>
+                                                                            </select>
+                                                                        </div>                                                                        
                                                                         <div class='form-group col-md-12 col-xs-12'>
                                                                             <label class='control-label'>Descrição:</label>
                                                                             <textarea class='form-control' name='descricao'>" . $aux["descricao"] . "</textarea>
@@ -252,6 +263,14 @@
                                 <label class="control-label">Problema:</label>
                                 <input class="form-control" name="tipo" type="text"/>
                             </div>
+                            <div class="form-group col-md-6 col-xs-12">
+                                <label class="control-label">Status:</label>
+                                <select class="form-control" name="status" required>
+                                    <option value="A">Aberto</option>
+                                    <option value="E">Em Atendimento</option>
+                                    <option value="F">Finalizado</option>
+                                </select>
+                            </div>
                             <div class="form-group col-md-12 col-xs-12">
                                 <label class="control-label">Descrição:</label>
                                 <textarea class="form-control" name="descricao"></textarea>
@@ -276,7 +295,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="close">
                             <span aria-hidden="true"><i class="glyphicon glyphicon-remove"></i></span>
                         </button>
-                        <h3 class="modal-title">Cadastro de Usuario</h3>
+                        <h3 class="modal-title">Cadastro de Usuário</h3>
                     </div>
                     <div class="modal-body">
                         <form action="controller/adduser.php" method="POST">

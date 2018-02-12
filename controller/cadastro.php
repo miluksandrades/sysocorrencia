@@ -4,11 +4,12 @@
     $db = mysql_select_db($database);
     
     $responsavel = $_POST["responsavel"];
+    $status = $_POST["status"];
     $problema = $_POST["tipo"];
     $descricao = $_POST["descricao"];
     $local = $_POST["local"];
     
-    $sql = "INSERT INTO ocorrencia (`responsavel`, `problema`, `descricao`, `localidade`) VALUES('$responsavel', '$problema', '$descricao', '$local')";
+    $sql = "INSERT INTO ocorrencia (`responsavel`, `problema`, `descricao`, `localidade`, `status`) VALUES('$responsavel', '$problema', '$descricao', '$local', '$status')";
     
     mysql_query($sql, $conexao);
     

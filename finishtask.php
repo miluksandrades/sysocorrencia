@@ -114,7 +114,7 @@
                                     <table class="table table-striped tabl-hover">
                                         <thead class="bg-green">
                                             <tr>
-                                                <th style="width: 100px">id</th>
+                                                <th style="width: 100px">Status</th>
                                                 <!--<th>Status</th>-->
                                                 <th style="width: 200px">Tipo de Ocorrência</th>
                                                 <th style="width: 350px; text-align: justify">Descrição</th>
@@ -128,10 +128,10 @@
                                             include './connection/conexao.php';
 
                                             $db = mysql_select_db("$database");
-                                            $sql = mysql_query("SELECT *FROM ocorrencia");
+                                            $sql = mysql_query("SELECT *FROM ocorrencia WHERE status = 'F'");
 
                                             while ($aux = mysql_fetch_assoc($sql)) {
-                                                echo "<tr><td>" . $aux["id"] . "</td>";
+                                                echo "<tr><td style='text-align: center'><i class='fa fa-circle' style='color: red'></i></td>";
                                                 echo "<td>" . $aux["problema"] . "</td>";
                                                 echo "<td>" . $aux["descricao"] . "</td>";
                                                 echo "<td>" . $aux["responsavel"] . "</td>";
@@ -179,6 +179,14 @@
                                 <label class="control-label">Problema:</label>
                                 <input class="form-control" name="tipo" type="text"/>
                             </div>
+                            <div class="form-group col-md-6 col-xs-12">
+                                <label class="control-label">Status:</label>
+                                <select class="form-control" name="status">
+                                    <option value="A">Aberto</option>
+                                    <option value="E">Em Atendimento</option>
+                                    <option value="F">Finalizado</option>
+                                </select>
+                            </div>
                             <div class="form-group col-md-12 col-xs-12">
                                 <label class="control-label">Descrição:</label>
                                 <textarea class="form-control" name="descricao"></textarea>
@@ -203,7 +211,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="close">
                             <span aria-hidden="true"><i class="glyphicon glyphicon-remove"></i></span>
                         </button>
-                        <h3 class="modal-title">Cadastro de Usuario</h3>
+                        <h3 class="modal-title">Cadastro de Usuário</h3>
                     </div>
                     <div class="modal-body">
                         <form action="controller/adduser.php" method="POST">
