@@ -164,9 +164,9 @@
                                                 echo "<td>" . $aux["responsavel"] . "</td>";
                                                 echo "<td>" . $aux["localidade"] . "</td>";
                                                 echo "<td>" . "<a href='#' data-toggle='modal' data-target='#modal-alter". $aux["id"]."'>"
-                                                . "<button class='btn btn-success'><i class='material-icons'>edit</i>"
+                                                . "<button class='btn btn-sm btn-success'><i class='fa fa-pencil'></i> Alterar"
                                                 . "</button></a>&nbsp;&nbsp;<a href='#' data-toggle='modal' data-target='#modal-excluir". $aux["id"]."'>"
-                                                . "<button class='btn btn-danger'><i class='material-icons'>delete</i></button></a>"
+                                                . "<button class='btn btn-sm btn-danger'><i class='fa fa-trash'></i> Remover</button></a>"
                                                 . "</td></tr>";
 
                                                 echo"<div class='modal fade cart-modal' id='modal-excluir". $aux["id"]."' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>";
