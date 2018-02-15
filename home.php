@@ -163,13 +163,13 @@
                                                 echo "<td>" . $aux["descricao"] . "</td>";
                                                 echo "<td>" . $aux["responsavel"] . "</td>";
                                                 echo "<td>" . $aux["localidade"] . "</td>";
-                                                echo "<td>" . "<a href='#' data-toggle='modal' data-target='#modal-alter'>"
+                                                echo "<td>" . "<a href='#' data-toggle='modal' data-target='#modal-alter". $aux["id"]."'>"
                                                 . "<button class='btn btn-success'><i class='material-icons'>edit</i>"
-                                                . "</button></a>&nbsp;&nbsp;<a href='#' data-toggle='modal' data-target='#modal-excluir'>"
+                                                . "</button></a>&nbsp;&nbsp;<a href='#' data-toggle='modal' data-target='#modal-excluir". $aux["id"]."'>"
                                                 . "<button class='btn btn-danger'><i class='material-icons'>delete</i></button></a>"
                                                 . "</td></tr>";
 
-                                                echo"<div class='modal fade cart-modal' id='modal-excluir' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>";
+                                                echo"<div class='modal fade cart-modal' id='modal-excluir". $aux["id"]."' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>";
                                                 echo"<div class='modal-dialog' role='document'>";
                                                 echo"<div class='modal-content'>";
                                                 echo"<div class='modal-header'>";
@@ -188,7 +188,7 @@
                                                 echo"<button type='button' class='btn btn-default' data-dismiss='modal'>Cancelar</button>";
                                                 echo"</div></div></form></div></div></div></div>";
 
-                                                echo "<div class='modal fade cart-modal' id='modal-alter' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+                                                echo "<div class='modal fade cart-modal' id='modal-alter". $aux["id"]."' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
                                                         <div class='modal-dialog' role='document'>
                                                             <div class='modal-content'>
                                                                 <div class='modal-header'>
