@@ -48,6 +48,29 @@
                     <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
                         <span class="sr-only"></span>
                     </a>
+                    <div class="navbar-custom-menu">
+                        <ul class="nav navbar-nav">                            
+                            <li class="dropdown user user-menu">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <span class="hidden-xs" style="text-transform: uppercase"><?php echo $logado?></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <!-- User image -->
+                                    <li class="user-header">
+                                        <p style="text-transform: uppercase">
+                                            <?php echo $logado?><br>
+                                        </p>
+                                    </li>
+                                    <!-- Menu Footer-->
+                                    <li class="user-footer">
+                                        <div class="pull-right">
+                                            <a href="index.php" class="btn btn-default btn-flat">Sair</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
                 </nav>
             </header>
             <!-- Left side column. contains the logo and sidebar -->
@@ -55,13 +78,6 @@
                 <!-- sidebar: style can be found in sidebar.less -->
                 <section class="sidebar">
                     <ul class="sidebar-menu">
-                        <div class="user-panel">
-                            <div class="pull-left info">
-                                <p class="lead"><?php echo $logado?></p>
-                                <i class="fa fa-circle text-success"></i> Online&nbsp;&nbsp;
-                                <a href="index.php"><button class="btn btn-sm btn-warning">Sair</button></a>
-                            </div>
-                        </div>
                         <li class="treeview">
                             <a href="home.php" id="inicio">
                                 <i class="fa fa-tasks"></i>

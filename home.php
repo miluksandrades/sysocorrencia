@@ -47,7 +47,30 @@
                     <!-- Sidebar toggle button-->
                     <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
                         <span class="sr-only"></span>
-                    </a>                    
+                    </a>
+                    <div class="navbar-custom-menu">
+                        <ul class="nav navbar-nav">                            
+                            <li class="dropdown user user-menu">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <span class="hidden-xs" style="text-transform: uppercase"><?php echo $logado?></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <!-- User image -->
+                                    <li class="user-header">
+                                        <p style="text-transform: uppercase">
+                                            <?php echo $logado?><br>
+                                        </p>
+                                    </li>
+                                    <!-- Menu Footer-->
+                                    <li class="user-footer">
+                                        <div class="pull-right">
+                                            <a href="index.php" class="btn btn-default btn-flat">Sair</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
                 </nav>
             </header>
             <!-- Left side column. contains the logo and sidebar -->
@@ -55,13 +78,6 @@
                 <!-- sidebar: style can be found in sidebar.less -->
                 <section class="sidebar">
                     <ul class="sidebar-menu">
-                        <div class="user-panel">
-                            <div class="pull-left info">
-                                <p class="lead"><?php echo $logado?></p>
-                                <i class="fa fa-circle text-success"></i> Online&nbsp;&nbsp;
-                                <a href="index.php"><button class="btn btn-sm btn-warning">Sair</button></a>
-                            </div>
-                        </div>
                         <li class="treeview">
                             <a href="home.php" id="inicio">
                                 <i class="fa fa-tasks"></i>
@@ -132,17 +148,17 @@
                                             $sql = mysql_query("SELECT *FROM ocorrencia WHERE status = 'A' OR status = 'E'");
 
                                             while ($aux = mysql_fetch_assoc($sql)) {
-                                                
-                                                if($aux["status"] == 'A'){
+
+                                                if ($aux["status"] == 'A') {
                                                     $saida = "<td style='text-align: center'><i class='fa fa-circle' style='color: green'></i></td>";
-                                                } else if($aux["status"] == 'E'){
+                                                } else if ($aux["status"] == 'E') {
                                                     $saida = "<td style='text-align: center'><i class='fa fa-circle' style='color: blue'></i></td>";
-                                                } else if($aux["status"] == 'F'){
+                                                } else if ($aux["status"] == 'F') {
                                                     $saida = "<td style='text-align: center'><i class='fa fa-circle' style='color: red'></i></td>";
                                                 }
-                                                
+
                                                 echo"<tr>";
-                                                echo "".$saida;                                         
+                                                echo "" . $saida;
                                                 echo "<td>" . $aux["problema"] . "</td>";
                                                 echo "<td>" . $aux["descricao"] . "</td>";
                                                 echo "<td>" . $aux["responsavel"] . "</td>";
@@ -162,9 +178,9 @@
                                                 echo"</button>";
                                                 echo"<h3 class='modal-title'>Remover Ocorrência</h3>";
                                                 echo"</div>";
-                                                echo"<div class='modal-body'>";                        
+                                                echo"<div class='modal-body'>";
                                                 echo"<form action='controller/excluir.php' method='POST'>";
-                                                echo"<input type='text' name='chave' value='".$aux["id"]."' style='display: none'/>";
+                                                echo"<input type='text' name='chave' value='" . $aux["id"] . "' style='display: none'/>";
                                                 echo"<p class='lead'>Deseja realmente excluir esse movimento?</p>";
                                                 echo"<div class='modal-footer'>";
                                                 echo"<div class='col-md-12 col-xs-12 pull-left'>";
@@ -183,7 +199,7 @@
                                                                 </div>
                                                                 <div class='modal-body'>                        
                                                                     <form action='controller/alterar.php' method='POST'>
-                                                                        <input type='text' name='alteracao' value='".$aux["id"]."' style='display: none'/>
+                                                                        <input type='text' name='alteracao' value='" . $aux["id"] . "' style='display: none'/>
                                                                         <div class='form-group col-md-6 col-xs-12'>
                                                                             <label class='control-label'>Contato Responsável:</label>
                                                                             <input class='form-control' type='text' value='" . $aux["responsavel"] . "' name='responsavel'/>
@@ -339,7 +355,7 @@
         <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.min.js" type="text/javascript"></script>
         <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
         <script>
-            $.widget.bridge('uibutton', $.ui.button);
+                                        $.widget.bridge('uibutton', $.ui.button);
         </script>
         <!-- Bootstrap 3.3.2 JS -->
         <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
@@ -350,7 +366,9 @@
         <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
         <script src="dist/js/pages/dashboard.js" type="text/javascript"></script>
         <script type="text/javascript">
-            function atualizar() {location.reload();}
+                                        function atualizar() {
+                                            location.reload();
+                                        }
         </script>
     </body>
 </html>
