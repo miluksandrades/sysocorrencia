@@ -277,7 +277,36 @@
                             </div>
                             <div class="form-group col-md-6 col-xs-12">
                                 <label class="control-label">Problema:</label>
-                                <input class="form-control" name="tipo" type="text"/>
+                                <select class="form-control" name="tipo" required>
+                                    <option value="">Selecione...</option>
+                                    <optgroup label="Suporte">
+                                        <option value="Retornar Ligação">Retornar Ligação</option>
+                                        <option value="Instalação">Instalação</option>
+                                        <option value="Suporte In Loco">Suporte em Loco</option>
+                                        <option value="Suporte Remoto">Suporte Remoto</option>
+                                        <option value="Atualização">Atualização</option>
+                                    </optgroup>
+                                    <optgroup label="Desenvolvimento">
+                                        <option value="Bug">Bug</option>
+                                        <option value="Correção">Correção</option>
+                                        <option value="Implementação">Implementação</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6 col-xs-12">
+                                <label class="control-label">Unidade:</label>
+                                <select class="form-control" name="unidade" required>
+                                    <option value="">Selecione...</option>
+                                    <option value="A">Módulo Comercial</option>
+                                    <option value="E">Módulo Cobrança</option>
+                                    <option value="F">Módulo Financeiro</option>
+                                    <option value="F">Módulo Serviços</option>
+                                    <option value="F">RealMed Clinica</option>
+                                    <option value="F">RealMed SUS</option>
+                                    <option value="F">SmartCob</option>
+                                    <option value="F">Palm</option>
+                                    <option value="F">Orion Serviços Póstumos</option>
+                                </select>
                             </div>
                             <div class="form-group col-md-6 col-xs-12">
                                 <label class="control-label">Status:</label>
