@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 17-Fev-2018 às 20:21
+-- Generation Time: 17-Fev-2018 às 22:33
 -- Versão do servidor: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -86,7 +86,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT for table `ocorrencia`
 --
 ALTER TABLE `ocorrencia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `usuario`
 --
