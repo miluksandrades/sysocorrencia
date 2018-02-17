@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 17-Fev-2018 às 22:33
+-- Generation Time: 17-Fev-2018 às 22:38
 -- Versão do servidor: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -19,6 +19,28 @@ SET time_zone = "+00:00";
 --
 -- Database: `sysocorrencia`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `empresa`
+--
+
+CREATE TABLE `empresa` (
+  `emp_id` int(11) NOT NULL,
+  `emp_desc` varchar(200) DEFAULT NULL,
+  `emp_muncipio` varchar(70) DEFAULT NULL,
+  `emp_estado` varchar(20) DEFAULT NULL,
+  `emp_telefone` varchar(13) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `empresa`
+--
+
+INSERT INTO `empresa` (`emp_id`, `emp_desc`, `emp_muncipio`, `emp_estado`, `emp_telefone`) VALUES
+(52, 'Teste', 'Teste', 'GO', '1234567890'),
+(100, 'Teste', 'Teste', 'GO', '1234567890');
 
 -- --------------------------------------------------------
 
@@ -67,6 +89,12 @@ INSERT INTO `usuario` (`usu_id`, `usu_nome`, `usu_username`, `usu_password`, `us
 --
 
 --
+-- Indexes for table `empresa`
+--
+ALTER TABLE `empresa`
+  ADD PRIMARY KEY (`emp_id`);
+
+--
 -- Indexes for table `ocorrencia`
 --
 ALTER TABLE `ocorrencia`
@@ -82,6 +110,11 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT for dumped tables
 --
 
+--
+-- AUTO_INCREMENT for table `empresa`
+--
+ALTER TABLE `empresa`
+  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
 --
 -- AUTO_INCREMENT for table `ocorrencia`
 --
