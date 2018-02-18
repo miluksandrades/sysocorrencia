@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 17-Fev-2018 às 22:38
+-- Generation Time: 18-Fev-2018 às 19:26
 -- Versão do servidor: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `empresa` (
   `emp_id` int(11) NOT NULL,
   `emp_desc` varchar(200) DEFAULT NULL,
-  `emp_muncipio` varchar(70) DEFAULT NULL,
+  `emp_municipio` varchar(70) DEFAULT NULL,
   `emp_estado` varchar(20) DEFAULT NULL,
   `emp_telefone` varchar(13) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -38,9 +38,11 @@ CREATE TABLE `empresa` (
 -- Extraindo dados da tabela `empresa`
 --
 
-INSERT INTO `empresa` (`emp_id`, `emp_desc`, `emp_muncipio`, `emp_estado`, `emp_telefone`) VALUES
-(52, 'Teste', 'Teste', 'GO', '1234567890'),
-(100, 'Teste', 'Teste', 'GO', '1234567890');
+INSERT INTO `empresa` (`emp_id`, `emp_desc`, `emp_municipio`, `emp_estado`, `emp_telefone`) VALUES
+(124, 'Serluz - Unidade 1', 'LuziÃ¢nia', 'DF', '(61)3321-7200'),
+(125, 'Serluz - Unidade 2', 'LuziÃ¢nia', 'DF', '(61)3321-7200'),
+(126, 'Serluz - Unidade 4', 'LuziÃ¢nia', 'DF', '(61)3321-7200'),
+(128, 'Serluz - Unidade 3', 'LuziÃ¢nia', 'DF', '(61)3321-7200');
 
 -- --------------------------------------------------------
 
@@ -51,12 +53,27 @@ INSERT INTO `empresa` (`emp_id`, `emp_desc`, `emp_muncipio`, `emp_estado`, `emp_
 CREATE TABLE `ocorrencia` (
   `id` int(11) NOT NULL,
   `responsavel` varchar(70) NOT NULL,
-  `problema` varchar(70) NOT NULL,
-  `descricao` varchar(400) NOT NULL,
-  `localidade` varchar(70) NOT NULL,
+  `problema` varchar(100) NOT NULL,
+  `descricao` varchar(200) NOT NULL,
+  `localidade` varchar(100) NOT NULL,
   `status` char(1) NOT NULL,
-  `usuario` varchar(20) NOT NULL
+  `usuario` varchar(100) NOT NULL,
+  `usu_responsavel` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `ocorrencia`
+--
+
+INSERT INTO `ocorrencia` (`id`, `responsavel`, `problema`, `descricao`, `localidade`, `status`, `usuario`, `usu_responsavel`) VALUES
+(5, 'Luciana', 'Retornar LigaÃ§Ã£o', ' ', 'Serluz - Unidade 1 - LuziÃ¢nia/DF', 'F', 'lucas', ' '),
+(8, 'Paulo', 'InstalaÃ§Ã£o', ' ', 'Serluz - Unidade 1 - LuziÃ¢nia/DF', 'E', 'lucas', 'lucas'),
+(9, 'Justine', 'InstalaÃ§Ã£o', '  ', 'Serluz - Unidade 4 - LuziÃ¢nia/DF', 'A', 'lucas', ' '),
+(11, ' ', 'Retornar LigaÃ§Ã£o', ' ', 'Serluz - Unidade 1 - LuziÃ¢nia/DF', 'A', 'lucas', 'lucas'),
+(12, ' ', 'Retornar LigaÃ§Ã£o', ' ', 'Serluz - Unidade 1 - LuziÃ¢nia/DF', 'A', 'lucas', 'lucas'),
+(13, ' ', 'Bug', ' ', 'Serluz - Unidade 2 - LuziÃ¢nia/DF', 'A', 'lucas', 'lucas'),
+(14, ' ', 'Suporte In Loco', ' ', 'Serluz - Unidade 1 - LuziÃ¢nia/DF', 'A', 'lucas', 'lucas'),
+(15, 'Paulo', 'Retornar LigaÃ§Ã£o', 'j', 'Serluz - Unidade 3 - LuziÃ¢nia/DF', 'E', 'lucas', ' ');
 
 -- --------------------------------------------------------
 
@@ -114,12 +131,12 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT for table `empresa`
 --
 ALTER TABLE `empresa`
-  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
 --
 -- AUTO_INCREMENT for table `ocorrencia`
 --
 ALTER TABLE `ocorrencia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `usuario`
 --

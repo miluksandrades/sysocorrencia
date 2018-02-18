@@ -12,10 +12,10 @@
 
         $pagina = (isset($_GET['pagina'])) ? $_GET['pagina'] : 1;
         $db = mysql_select_db("$database");
-        $resultado = mysql_query("SELECT *FROM ocorrencia");
+        $resultado = mysql_query("SELECT *FROM ocorrencia WHERE status = 'A' OR status = 'E'");
 
         $total_ocorrencias = mysql_num_rows($resultado);
-        $qtd_item_page = 10;
+        $qtd_item_page = 5;
         $num_pagina = ceil($total_ocorrencias / $qtd_item_page);
         $inicio = ($qtd_item_page * $pagina) - $qtd_item_page;
 
@@ -155,6 +155,23 @@
                                     <button class="btn btn-success" data-toggle="modal" data-target="#modal-add"><i class="fa fa-plus"></i> Abrir Chamado</button>
                                 </div>
                                 <div class="box-body">
+                                    <?php
+                                    include './connection/conexao.php';
+
+                                    $paginas = (isset($_GET['page'])) ? $_GET['page'] : 1;
+                                    mysql_select_db($database);
+                                    $sql = mysql_query("SELECT *FROM ocorrencia WHERE usu_responsavel LIKE '$logado'");
+                                    
+                                    $num_ocorencias = mysql_num_rows($sql);
+                                    $qtd_item = 5;
+                                    $numero_pagina = ceil($num_ocorencias / $qtd_item);
+                                    $comeco = ($qtd_item * $paginas) - $qtd_item;
+                                    
+                                    $sql_ocorrencia = mysql_query("SELECT *FROM ocorrencia WHERE usu_responsavel LIKE '$logado' LIMIT $comeco, $qtd_item");
+                                    $num_ocorencias = mysql_num_rows($sql_ocorrencia);
+                                    
+                                    ?>
+                                    <p class="lead"><b>Minhas Ocorrências</b></p>
                                     <table class="table table-striped tabl-hover">
                                         <thead class="bg-green">
                                             <tr>
@@ -170,7 +187,7 @@
                                         <tbody>
 
                                             <?php
-                                            while ($aux = mysql_fetch_assoc($resultado_contatos)) {
+                                            while ($aux = mysql_fetch_assoc($sql_ocorrencia)) {
 
                                                 if ($aux['status'] == 'A') {
                                                     $saida = "<i class='fa fa-circle' style='color: green'></i>";
@@ -182,8 +199,8 @@
                                                 ?>
 
                                                 <tr>
-                                                    <td style="text-align: center"><?php echo $saida ?></td>
-                                                    <td style="text-align: center"><?php echo $aux['usuario'] ?></td>
+                                                    <td style="text-align: center; width: 50px"><?php echo $saida ?></td>
+                                                    <td style="text-align: center; width: 70px"><?php echo $aux['usuario'] ?></td>
                                                     <td><?php echo $aux['problema'] ?></td>
                                                     <td><?php echo $aux['descricao'] ?></td>
                                                     <td><?php echo $aux['responsavel'] ?></td>
@@ -273,37 +290,189 @@
                                                 </div>
                                             </div>
 
-                                            <?php } ?>
+                                        <?php } ?>
 
                                         </tbody>
                                     </table>
-                                    <?php 
-                                        $anterior = $pagina - 1;
-                                        $posterior = $pagina + 1;
-                                        ?>
-                                        <nav class="text-center">
-                                            <ul class="pagination">
-                                                <?php if($anterior != 0){?>
+                                    <?php
+                                    $before = $paginas - 1;
+                                    $after = $paginas + 1;
+                                    ?>
+                                    <nav class="text-center">
+                                        <ul class="pagination">
+                                            <?php if ($before != 0) { ?>
                                                 <li class="page-item">
-                                                    <a class="page-link" href="finishtask.php?pagina=<?php echo $anterior?>">
+                                                    <a class="page-link" href="home.php?page=<?php echo $before ?>">
                                                         Anterior
                                                     </a>
                                                 </li>
-                                                <?php }?>
-                                                <?php for($i = 1; $i < $num_pagina+1; $i++){?>
+                                            <?php } ?>
+                                            <?php for ($i = 1; $i < $numero_pagina + 1; $i++) { ?>
                                                 <li class="page-item">
-                                                    <a class="page-link" href="finishtask.php?pagina=<?php echo $i?>"><?php echo $i?></a>
+                                                    <a class="page-link" href="home.php?page=<?php echo $i ?>"><?php echo $i ?></a>
                                                 </li>
-                                                <?php }?>
-                                                <?php if($posterior <= $num_pagina){?>
+                                            <?php } ?>
+                                            <?php if ($after <= $numero_pagina) { ?>
                                                 <li class="page-item">
-                                                    <a class="page-link" href="finishtask.php?pagina=<?php echo $posterior?>">
+                                                    <a class="page-link" href="home.php?page=<?php echo $after ?>">
                                                         Próximo
                                                     </a>
                                                 </li>
-                                                <?php }?>
-                                            </ul>
-                                        </nav>
+                                            <?php } ?>
+                                        </ul>
+                                    </nav>
+
+                                    <!--Ocorrências Públicas-->
+                                    <p class="lead"><b>Ocorrências Públicas</b></p>
+                                    <table class="table table-striped tabl-hover">
+                                        <thead class="bg-green">
+                                            <tr>
+                                                <th style="width: 100px; text-align: center">Status</th>
+                                                <th style="width: 80px; text-align: center">Usuário</th>
+                                                <th style="width: 200px">Tipo de Ocorrência</th>
+                                                <th style="width: 350px; text-align: justify">Descrição</th>
+                                                <th>Responsável</th>
+                                                <th>Local</th>                                                
+                                                <th>Ações</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <?php
+                                            while ($aux = mysql_fetch_assoc($resultado_contatos)) {
+
+                                                if ($aux['status'] == 'A') {
+                                                    $saida = "<i class='fa fa-circle' style='color: green'></i>";
+                                                } else if ($aux['status'] == 'E') {
+                                                    $saida = "<i class='fa fa-circle' style='color: blue'></i>";
+                                                } else if ($aux["status"] == 'F') {
+                                                    $saida = "<i class='fa fa-circle' style='color: red'></i>";
+                                                }
+                                                ?>
+
+                                                <tr>
+                                                    <td style="text-align: center; width: 50px"><?php echo $saida ?></td>
+                                                    <td style="text-align: center; width: 70px"><?php echo $aux['usuario'] ?></td>
+                                                    <td><?php echo $aux['problema'] ?></td>
+                                                    <td><?php echo $aux['descricao'] ?></td>
+                                                    <td><?php echo $aux['responsavel'] ?></td>
+                                                    <td><?php echo $aux['localidade'] ?></td>
+                                                    <td>
+                                                        <a href="#" data-toggle="modal" data-target="#modal-alter<?php echo $aux['id'] ?>">
+                                                            <button class="btn btn-sm btn-success">
+                                                                <i class="fa fa-pencil"></i> Alterar
+                                                            </button>
+                                                        </a>&nbsp;&nbsp;
+                                                        <a href="#" data-toggle="modal" data-target="#modal-excluir<?php echo $aux['id'] ?>">
+                                                            <button class="btn btn-sm btn-danger">
+                                                                <i class="fa fa-trash"></i> Remover
+                                                            </button>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            <div class="modal fade cart-modal" id="modal-excluir<?php echo $aux['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                                                                <span aria-hidden="true"><i class="glyphicon glyphicon-remove"></i></span>
+                                                            </button>
+                                                            <h3 class="modal-title">Remover Ocorrência</h3>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form action="controller/excluir.php" method="POST">
+                                                                <input type="text" name="chave" value="<?php echo $aux['id']; ?>" style='display: none'/>
+                                                                <p class="lead">Deseja realmente excluir esse movimento?</p>
+                                                                <div class="modal-footer">
+                                                                    <div class="col-md-12 col-xs-12 pull-left">
+                                                                        <button type="submit" class="btn btn-danger">Remover</button>
+                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal fade cart-modal" id="modal-alter<?php echo $aux['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                                                                <span aria-hidden="true"><i class="glyphicon glyphicon-remove"></i></span>
+                                                            </button>
+                                                            <h3 class="modal-title">Alterar Ocorrência</h3>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form action="controller/alterar.php" method="POST">
+                                                                <input type="text" name="alteracao" value="<?php echo $aux['id']; ?>" style='display: none'/>
+                                                                <div class="form-group col-md-6 col-xs-12">
+                                                                    <label class="control-label">Contato Responsável:</label>
+                                                                    <input class="form-control" type="text" value="<?php echo $aux['responsavel'] ?>" name="responsavel"/>
+                                                                </div>                                                                       
+                                                                <div class="form-group col-md-6 col-xs-12">
+                                                                    <label class="control-label">Local:</label>
+                                                                    <input class="form-control" type="text" value="<?php echo $aux['localidade'] ?>" name="local"/>
+                                                                </div>                                                                       
+                                                                <div class="form-group col-md-6 col-xs-12">
+                                                                    <label class="control-label">Problema:</label>
+                                                                    <input class="form-control" type="text" value="<?php echo $aux['problema'] ?>" name="tipo"/>
+                                                                </div>
+                                                                <div class="form-group col-md-6 col-xs-12">
+                                                                    <label class="control-label">Status:</label>
+                                                                    <select class="form-control" name="status" required>
+                                                                        <option value="A">Aberto</option>
+                                                                        <option value="E">Em Atendimento</option>
+                                                                        <option value="F">Finalizado</option>
+                                                                    </select>
+                                                                </div>                                                                        
+                                                                <div class='form-group col-md-12 col-xs-12'>
+                                                                    <label class="control-label">Descrição:</label>
+                                                                    <textarea class="form-control" name="descricao"><?php echo $aux['descricao'] ?></textarea>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <div class="col-md-12 col-xs-12 pull-left">
+                                                                        <button type="submit" class="btn btn-success">Alterar</button>
+                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        <?php } ?>
+
+                                        </tbody>
+                                    </table>
+                                    <?php
+                                    $anterior = $pagina - 1;
+                                    $posterior = $pagina + 1;
+                                    ?>
+                                    <nav class="text-center">
+                                        <ul class="pagination">
+                                            <?php if ($anterior != 0) { ?>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="home.php?pagina=<?php echo $anterior ?>">
+                                                        Anterior
+                                                    </a>
+                                                </li>
+                                            <?php } ?>
+                                            <?php for ($i = 1; $i < $num_pagina + 1; $i++) { ?>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="home.php?pagina=<?php echo $i ?>"><?php echo $i ?></a>
+                                                </li>
+                                            <?php } ?>
+                                            <?php if ($posterior <= $num_pagina) { ?>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="home.php?pagina=<?php echo $posterior ?>">
+                                                        Próximo
+                                                    </a>
+                                                </li>
+                                            <?php } ?>
+                                        </ul>
+                                    </nav>
                                 </div>
                             </div>
                         </div>
@@ -337,16 +506,16 @@
                             </div>
                             <div class="form-group col-md-6 col-xs-12">
                                 <label class="control-label">Local:</label>
-                                <select class="form-control" name="local" required>
+                                <select class="form-control" name="local" style="overflow-y: scroll; overflow-x: hidden" required>
                                     <option value="">Selecione...</option>
                                     <?php
                                     include './connection/conexao.php';
 
                                     mysql_select_db($database);
-                                    $query = mysql_query("SELECT *FROM empresa");
+                                    $query = mysql_query("SELECT *FROM empresa ORDER BY emp_desc");
 
                                     while ($row = mysql_fetch_assoc($query)) {
-                                        echo "<option value='" . $row["emp_desc"] . " - " . $row["emp_muncipio"] . "/" . $row["emp_estado"] . "'>" . $row["emp_desc"] . " - " . $row["emp_muncipio"] . "/" . $row["emp_estado"] . "</option>";
+                                        echo "<option value='" . $row["emp_desc"] . " - " . $row["emp_municipio"] . "/" . $row["emp_estado"] . "'>" . $row["emp_desc"] . " - " . $row["emp_municipio"] . "/" . $row["emp_estado"] . "</option>";
                                     }
                                     ?>
                                 </select>
@@ -392,10 +561,23 @@
                                     <option value="F">Finalizado</option>
                                 </select>
                             </div>
-                            <div class="form-group col-md-6 col-xs-12" style="display: none">
+                            <div class="form-group col-md-6 col-xs-12">
                                 <label class="control-label">Usuário Responsável:</label>
-                                <input class="form-control" type="text" name="usuario" value="<?php echo $logado ?>"/>
+                                <select class="form-control" name="usu_responsavel" required>
+                                    <option value=" ">Selecione...</option>
+                                    <?php
+                                    include './connection/conexao.php';
+
+                                    mysql_select_db($database);
+                                    $query = mysql_query("SELECT *FROM usuario ORDER BY usu_username");
+
+                                    while ($row = mysql_fetch_assoc($query)) {
+                                        echo "<option value='".$row['usu_username']."'>".$row['usu_username']."</option>";
+                                    }
+                                    ?>
+                                </select>
                             </div>
+                            <input type="text" style="display: none" name="usuario" value="<?php echo $logado ?>"/>
                             <div class="form-group col-md-12 col-xs-12">
                                 <label class="control-label">Descrição:</label>
                                 <textarea class="form-control" name="descricao"></textarea>
@@ -469,7 +651,7 @@
                         <h3 class="modal-title">Cadastro de Empresa</h3>
                     </div>
                     <div class="modal-body">
-                        <form action="controller/operacao.php" method="POST">
+                        <form action="controller/Fcontatos.php" method="POST">
                             <input type="hidden" name="method" value="addContato">
                             <div class="form-group col-md-6 col-xs-12">
                                 <label class="control-label">Nome Fantasia:</label>

@@ -156,7 +156,14 @@
                         <div class="col-xs-12">
                             <div class="box box-success">
                                 <div class="box-header">
-                                    <button class="btn btn-primary" onclick="atualizar()"><i class="fa fa-refresh"></i> Atualizar</button>
+                                    <button class="btn btn-primary" onclick="atualizar()"><i class="fa fa-refresh"></i> Atualizar</button>&nbsp;&nbsp;
+                                    <button class="btn btn-success" data-toggle="modal" data-target="#modal-contato"><i class="fa fa-user"></i> Cadastrar Contato</button>
+                                    <form action="controller/operacao.php" method="POST">
+                                        <input type="hidden" name="method" value="buscaContatos"/>
+                                        <div class="input-group input-group-sm col-xs-4 col-md-2 pull-right">
+                                            <input type="text" name="busca" class="form-control bg-white" placeholder="Buscar Contato">
+                                        </div>
+                                    </form>
                                 </div>
                                 <div class="box-body">
                                     <table class="table table-striped tabl-hover">
@@ -165,6 +172,7 @@
                                                 <th>Descrição</th>
                                                 <th>Telefone</th>                                                
                                                 <th>Localidade</th>
+                                                <th>Ações</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -172,9 +180,86 @@
                                                 <tr>
                                                     <td><?php echo $aux['emp_desc'] ?></td>
                                                     <td><?php echo $aux['emp_telefone'] ?></td>
-                                                    <td><?php echo $aux['emp_muncipio'] . "/" . $aux['emp_estado'] ?></td>
+                                                    <td><?php echo $aux['emp_municipio'] . "/" . $aux['emp_estado'] ?></td>
+                                                    <td>
+                                                        <a href="#" data-toggle="modal" data-target="#alt-contato<?php echo $aux['emp_id'] ?>">
+                                                            <button class="btn btn-sm btn-success">
+                                                                <i class="fa fa-pencil"></i> Alterar
+                                                            </button>
+                                                        </a>&nbsp;&nbsp;
+                                                        <a href="#" data-toggle="modal" data-target="#rem-contato<?php echo $aux['emp_id'] ?>">
+                                                            <button class="btn btn-sm btn-danger">
+                                                                <i class="fa fa-trash"></i> Remover
+                                                            </button>
+                                                        </a>
+                                                    </td>
                                                 </tr>
-                                            <?php } ?>
+                                            <div class="modal fade cart-modal" id="rem-contato<?php echo $aux['emp_id'] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                                                                <span aria-hidden="true"><i class="glyphicon glyphicon-remove"></i></span>
+                                                            </button>
+                                                            <h3 class="modal-title">Remover Contato</h3>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form action="controller/Fcontatos.php" method="POST">
+                                                                <input type="hidden" name="method" value="remContato"/>
+                                                                <input type="text" name="remocao" value="<?php echo $aux['emp_id']; ?>" style='display: none'/>
+                                                                <p class="lead">Deseja realmente excluir  <?php echo $aux['emp_desc'] ?>?</p>
+                                                                <div class="modal-footer">
+                                                                    <div class="col-md-12 col-xs-12 pull-left">
+                                                                        <button type="submit" class="btn btn-danger">Remover</button>
+                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal fade cart-modal" id="alt-contato<?php echo $aux['emp_id'] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                                                                <span aria-hidden="true"><i class="glyphicon glyphicon-remove"></i></span>
+                                                            </button>
+                                                            <h3 class="modal-title">Alterar Contato</h3>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form action="controller/Fcontatos.php" method="POST">
+                                                                <input type="hidden" name="method" value="altContato"/>
+                                                                <input type="text" name="chave" value="<?php echo $aux['emp_id']; ?>" style='display: none'/>
+                                                                <div class="form-group col-md-6 col-xs-12">
+                                                                    <label class="control-label">Nome Fantasia:</label>
+                                                                    <input class="form-control" type="text" name="emp_desc" value="<?php echo $aux['emp_desc']?>" required/>
+                                                                </div>
+                                                                <div class="form-group col-md-6 col-xs-12">
+                                                                    <label class="control-label">Município:</label>
+                                                                    <input class="form-control" type="text" name="emp_municipio" value="<?php echo $aux['emp_municipio']?>" required/>
+                                                                </div>
+                                                                <div class="form-group col-md-6 col-xs-12">
+                                                                    <label class="control-label">Estado:</label>
+                                                                    <input class="form-control" type="text" name="emp_estado" value="<?php echo $aux['emp_estado']?>" required/>
+                                                                </div>
+                                                                <div class="form-group col-md-6 col-xs-12">
+                                                                    <label class="control-label">Telefone:</label>
+                                                                    <input class="form-control telefone" type="text" name="emp_telefone" value="<?php echo $aux['emp_telefone']?>" required/>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <div class="col-md-12 col-xs-12 pull-left">
+                                                                        <button type="submit" class="btn btn-success">Alterar</button>
+                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <?php } ?>
                                         </tbody>
                                     </table>
                                     <?php
@@ -197,6 +282,7 @@
                                             //Apresentação
                                             for ($i = 1; $i < $num_pagina + 1; $i++) {
                                                 ?>
+
                                                 <li class="page-item"><a class="page-link" href="contatos.php?pagina=<?php echo $i ?>"><?php echo $i ?></a></li>
                                             <?php } ?>
                                             <?php if ($posterior <= $num_pagina) { ?>

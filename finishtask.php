@@ -12,7 +12,7 @@
 
         $pagina = (isset($_GET['pagina'])) ? $_GET['pagina'] : 1;
         $db = mysql_select_db("$database");
-        $resultado = mysql_query("SELECT *FROM ocorrencia");
+        $resultado = mysql_query("SELECT *FROM ocorrencia WHERE status = 'F'");
 
         $total_ocorrencias = mysql_num_rows($resultado);
         $qtd_item_page = 10;
@@ -157,8 +157,8 @@
                                     <table class="table table-striped tabl-hover">
                                         <thead class="bg-green">
                                             <tr>
-                                                <th style="width: 100px">Status</th>
-                                                <th style="width: 80px">Usuário</th>
+                                                <th style="text-align: center; width: 100px">Status</th>
+                                                <th style="text-align: center; width: 80px">Usuário</th>
                                                 <th style="width: 200px">Tipo de Ocorrência</th>
                                                 <th style="width: 350px; text-align: justify">Descrição</th>
                                                 <th>Responsável</th>
@@ -337,7 +337,7 @@
                                     $query = mysql_query("SELECT *FROM empresa");
 
                                     while ($row = mysql_fetch_assoc($query)) {
-                                        echo "<option value='" . $row["emp_desc"] . "'>" . $row["emp_desc"] . " - " . $row["emp_muncipio"] . "/" . $row["emp_estado"] . "</option>";
+                                        echo "<option value='" . $row["emp_desc"] . " - " . $row["emp_municipio"] . "/" . $row["emp_estado"] . "'>" . $row["emp_desc"] . " - " . $row["emp_municipio"] . "/" . $row["emp_estado"] . "</option>";
                                     }
                                     ?>
                                 </select>

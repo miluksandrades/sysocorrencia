@@ -13,8 +13,9 @@ class operacao {
         $descricao = $dados["descricao"];
         $local = $dados["local"];
         $usuario = $dados["usuario"];
+        $usu_responsavel = $dados["usu_responsavel"];
 
-        $sql = "INSERT INTO ocorrencia (`responsavel`, `problema`, `descricao`, `localidade`, `status`, `usuario`) VALUES('$responsavel', '$problema', '$descricao', '$local', '$status', '$usuario')";
+        $sql = "INSERT INTO ocorrencia (`responsavel`, `problema`, `descricao`, `localidade`, `status`, `usuario`, `usu_responsavel`) VALUES('$responsavel', '$problema', '$descricao', '$local', '$status', '$usuario', '$usu_responsavel')";
 
         mysql_query($sql, $conexao);
 
@@ -26,30 +27,18 @@ class operacao {
         }
 
         mysql_close($conexao);
-    }
-
-    public function addContato($dados) {
+    }    
+    
+    public function buscaContatos($dados){
         include '../connection/conexao.php';
-
+        
         mysql_select_db($database);
-
-        $emp_desc = $dados['emp_desc'];
-        $emp_municipio = $dados['emp_municipio'];
-        $emp_estado = $dados['emp_estado'];
-        $emp_telefone = $dados['emp_telefone'];
-
-        $sql = "INSERT INTO empresa(`emp_desc`, `emp_muncipio`, `emp_estado`, `emp_telefone`) VALUES ('$emp_desc','$emp_municipio','$emp_estado','$emp_telefone')";
-
-        mysql_query($sql, $conexao);
-
-        if (!$conexao) {
-            echo "<script>alert('Não foi possivel salvar os dados.');</script>";
-        } else {
-            echo "<script>alert('Contato criado com sucesso!');</script>";
-            echo "<script>window.location='../home.php'</script>";
-        }
-
-        mysql_close($conexao);
+        
+        $dado_busca = $dados['busca'];
+        
+        $sql = mysql_query("SELECT *FROM empresa WHERE emp_desc LIKE $dado_busca");
+        
+        
     }
 
     public function addUser($dados) {
