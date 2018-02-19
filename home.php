@@ -12,14 +12,14 @@
 
         $pagina = (isset($_GET['pagina'])) ? $_GET['pagina'] : 1;
         $db = mysql_select_db("$database");
-        $resultado = mysql_query("SELECT *FROM ocorrencia WHERE status = 'A' OR status = 'E'");
+        $resultado = mysql_query("SELECT * FROM `ocorrencia` WHERE status IN('A','E') AND usu_responsavel = ''");
 
         $total_ocorrencias = mysql_num_rows($resultado);
         $qtd_item_page = 5;
         $num_pagina = ceil($total_ocorrencias / $qtd_item_page);
         $inicio = ($qtd_item_page * $pagina) - $qtd_item_page;
 
-        $resultado_contatos = mysql_query("SELECT *FROM ocorrencia WHERE status = 'A' OR status = 'E' LIMIT $inicio, $qtd_item_page");
+        $resultado_contatos = mysql_query("SELECT * FROM ocorrencia WHERE status IN('A','E') AND usu_responsavel = '' LIMIT $inicio, $qtd_item_page");
         $total_ocorrencias = mysql_num_rows($resultado_contatos);
         ?>
         <meta http-equiv="refresh" content="<?php echo $sec ?>;URL='<?php echo $page ?>'">
@@ -160,14 +160,14 @@
 
                                     $paginas = (isset($_GET['page'])) ? $_GET['page'] : 1;
                                     mysql_select_db($database);
-                                    $sql = mysql_query("SELECT *FROM ocorrencia WHERE usu_responsavel LIKE '$logado'");
+                                    $sql = mysql_query("SELECT * FROM `ocorrencia` WHERE status IN('A','E') AND usu_responsavel LIKE '$logado'");
                                     
                                     $num_ocorencias = mysql_num_rows($sql);
                                     $qtd_item = 5;
                                     $numero_pagina = ceil($num_ocorencias / $qtd_item);
                                     $comeco = ($qtd_item * $paginas) - $qtd_item;
                                     
-                                    $sql_ocorrencia = mysql_query("SELECT *FROM ocorrencia WHERE usu_responsavel LIKE '$logado' LIMIT $comeco, $qtd_item");
+                                    $sql_ocorrencia = mysql_query("SELECT * FROM `ocorrencia` WHERE status IN('A','E') AND usu_responsavel LIKE '$logado' LIMIT $comeco, $qtd_item");
                                     $num_ocorencias = mysql_num_rows($sql_ocorrencia);
                                     
                                     ?>
@@ -175,11 +175,11 @@
                                     <table class="table table-striped tabl-hover">
                                         <thead class="bg-green">
                                             <tr>
-                                                <th style="width: 100px; text-align: center">Status</th>
-                                                <th style="width: 80px; text-align: center">Usuário</th>
+                                                <th style="width: 70px; text-align: center">Status</th>
+                                                <th style="width: 80px; text-align: center">Aberto</th>
                                                 <th style="width: 200px">Tipo de Ocorrência</th>
-                                                <th style="width: 350px; text-align: justify">Descrição</th>
-                                                <th>Responsável</th>
+                                                <th style="width: 250px; text-align: justify">Descrição</th>
+                                                <th style="width: 80px;">Responsável</th>
                                                 <th>Local</th>                                                
                                                 <th>Ações</th>
                                             </tr>
@@ -208,12 +208,12 @@
                                                     <td>
                                                         <a href="#" data-toggle="modal" data-target="#modal-alter<?php echo $aux['id'] ?>">
                                                             <button class="btn btn-sm btn-success">
-                                                                <i class="fa fa-pencil"></i> Alterar
+                                                                <i class="fa fa-pencil"></i>
                                                             </button>
                                                         </a>&nbsp;&nbsp;
                                                         <a href="#" data-toggle="modal" data-target="#modal-excluir<?php echo $aux['id'] ?>">
                                                             <button class="btn btn-sm btn-danger">
-                                                                <i class="fa fa-trash"></i> Remover
+                                                                <i class="fa fa-trash"></i>
                                                             </button>
                                                         </a>
                                                     </td>
@@ -327,11 +327,11 @@
                                     <table class="table table-striped tabl-hover">
                                         <thead class="bg-green">
                                             <tr>
-                                                <th style="width: 100px; text-align: center">Status</th>
+                                                <th style="width: 70px; text-align: center">Status</th>
                                                 <th style="width: 80px; text-align: center">Usuário</th>
-                                                <th style="width: 200px">Tipo de Ocorrência</th>
-                                                <th style="width: 350px; text-align: justify">Descrição</th>
-                                                <th>Responsável</th>
+                                                <th style="width: 150px">Tipo de Ocorrência</th>
+                                                <th style="width: 250px; text-align: justify">Descrição</th>
+                                                <th style="width: 80px">Responsável</th>
                                                 <th>Local</th>                                                
                                                 <th>Ações</th>
                                             </tr>
@@ -360,12 +360,12 @@
                                                     <td>
                                                         <a href="#" data-toggle="modal" data-target="#modal-alter<?php echo $aux['id'] ?>">
                                                             <button class="btn btn-sm btn-success">
-                                                                <i class="fa fa-pencil"></i> Alterar
+                                                                <i class="fa fa-pencil"></i>
                                                             </button>
                                                         </a>&nbsp;&nbsp;
                                                         <a href="#" data-toggle="modal" data-target="#modal-excluir<?php echo $aux['id'] ?>">
                                                             <button class="btn btn-sm btn-danger">
-                                                                <i class="fa fa-trash"></i> Remover
+                                                                <i class="fa fa-trash"></i>
                                                             </button>
                                                         </a>
                                                     </td>

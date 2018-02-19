@@ -157,10 +157,10 @@
                                     <table class="table table-striped tabl-hover">
                                         <thead class="bg-green">
                                             <tr>
-                                                <th style="text-align: center; width: 100px">Status</th>
+                                                <th style="text-align: center; width: 70px">Status</th>
                                                 <th style="text-align: center; width: 80px">Usuário</th>
                                                 <th style="width: 200px">Tipo de Ocorrência</th>
-                                                <th style="width: 350px; text-align: justify">Descrição</th>
+                                                <th style="width: 250px; text-align: justify">Descrição</th>
                                                 <th>Responsável</th>
                                                 <th>Local</th>
                                                 <th>Ações</th>
@@ -182,12 +182,12 @@
                                                     <td>
                                                         <a href="#" data-toggle="modal" data-target="#modal-alter<?php echo $aux['id'] ?>">
                                                             <button class="btn btn-sm btn-success">
-                                                                <i class="fa fa-pencil"></i> Alterar
+                                                                <i class="fa fa-pencil"></i>
                                                             </button>
                                                         </a>&nbsp;&nbsp;
                                                         <a href="#" data-toggle="modal" data-target="#modal-excluir<?php echo $aux['id'] ?>">
                                                             <button class="btn btn-sm btn-danger">
-                                                                <i class="fa fa-trash"></i> Remover
+                                                                <i class="fa fa-trash"></i>
                                                             </button>
                                                         </a>
                                                     </td>
@@ -459,7 +459,7 @@
                         <h3 class="modal-title">Cadastro de Empresa</h3>
                     </div>
                     <div class="modal-body">
-                        <form action="controller/operacao.php" method="POST">
+                        <form action="controller/Fcontatos.php" method="POST">
                             <input type="hidden" name="method" value="addContato">
                             <div class="form-group col-md-6 col-xs-12">
                                 <label class="control-label">Nome Fantasia:</label>

@@ -455,7 +455,7 @@
                         <h3 class="modal-title">Cadastro de Empresa</h3>
                     </div>
                     <div class="modal-body">
-                        <form action="controller/operacao.php" method="POST">
+                        <form action="controller/Fcontatos.php" method="POST">
                             <input type="hidden" name="method" value="addContato">
                             <div class="form-group col-md-6 col-xs-12">
                                 <label class="control-label">Nome Fantasia:</label>
